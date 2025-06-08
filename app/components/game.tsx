@@ -40,9 +40,6 @@ export default function Game() {
   // Keeps track of attempt count
   const [attempt, setAttempt] = useState(1);
 
-  // Keeps track of the active row
-  const [activeRow, setActiveRow] = useState(0);
-
 
   /**
    * Handles attempt checking
@@ -68,7 +65,6 @@ export default function Game() {
     if (!WORDS.includes(guess)) {
       toast.error(`${guess.toUpperCase()} is not in the word list!`);
       setRows(newRows);
-      setActiveRow(activeRow + 1);
       return;
     }
 
@@ -88,11 +84,10 @@ export default function Game() {
     // Update grid and keyboard states
     setRows(newRows);
     setAttempt(attempt + 1);
-    setActiveRow(activeRow + 1);
 
     const isSolved = row.letters.every((letter) => letter.status === 'correct');
     if (isSolved) {
-      toast.success('You won');
+      toast.success('You won', {autoClose: 10000});
       setAttempt(MAX_ATTEMPTS + 1);
       return;
     }
@@ -151,8 +146,10 @@ export default function Game() {
       for (const [colIndex, letter] of updatedLetters.entries()) {
         if (letter.character === '') {
           updatedLetters[colIndex] = {
+            column: colIndex,
             character: label,
-            status: 'not guessed'
+            status: 'not guessed',
+            inRevealedRow: (rowIndex === attempt - 1)
           };
 
           newRows[rowIndex] = { ...row, letters: updatedLetters };
@@ -190,7 +187,7 @@ export default function Game() {
 
   return (
     <div>
-      <Grid rows={rows} />
+      <Grid rows={rows} revealedRow={attempt - 2} />
 
       <Keyboard gridRows={rows} onClick={handleClick} />
 

@@ -3,6 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --letter-color-correct: #538d4e;
+  --letter-color-incorrect: #3a3a3c;
+  --letter-color-wrong-place: #b59f3b;
+  --letter-color-not-guessed: black;
+
+  --button-color-correct: #538d4e;
+  --button-color-incorrect: #3a3a3c;
+  --button-color-wrong-place: #b59f3b;
+  --button-color-not-guessed: #818384;
 }
 
 @theme inline {

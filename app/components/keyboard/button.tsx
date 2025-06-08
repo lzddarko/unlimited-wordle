@@ -2,16 +2,6 @@ import React from "react";
 
 
 /**
- * Color mapping between the status of the letter and its color
- */
-const COLORS: { [key: string]: string } = {
-  'correct': '#538d4e',
-  'wrong place': '#b59f3b',
-  'incorrect': '#3a3a3c',
-  'not guessed': '#818384'
-};
-
-/**
  * Props for the keyboard Button component
  */
 export interface ButtonProps {
@@ -28,8 +18,8 @@ const Button: React.FC<ButtonProps> = ({ label, status, onClick }) => {
     <div
       onClick={onClick}
       style={{
-        "background": COLORS[status],
-        "borderWidth": status === 'not guessed' ? '2px' : '',
+        "background": `var(--button-color-${status.replace(' ', '-')})`,
+        "borderWidth": (status === 'not guessed' ? '2px' : ''),
         "width": ['enter', 'delete'].includes(label) ? '70px' : '45px',
         "fontSize": ['enter', 'delete'].includes(label) ? '12px' : '20px'
       }}

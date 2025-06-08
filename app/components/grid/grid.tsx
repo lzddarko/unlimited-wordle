@@ -8,12 +8,13 @@ import { RowProps } from "./row";
  */
 export interface GridProps {
   rows: RowProps[];
+  revealedRow: number;
 }
 
 /**
  * Grid component
  */
-const Grid: React.FC<GridProps> = ({ rows }) => {
+const Grid: React.FC<GridProps> = ({ rows, revealedRow }) => {
   return (
     <div className="block items-center justify-center">
       {rows.map(
@@ -22,6 +23,7 @@ const Grid: React.FC<GridProps> = ({ rows }) => {
             key={index}
             rowIndex={index}
             letters={row.letters}
+            isRevealed={index === revealedRow}
           />
         )
       )}
